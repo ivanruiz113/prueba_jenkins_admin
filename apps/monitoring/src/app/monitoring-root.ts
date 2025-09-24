@@ -5,5 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   selector: 'app-monitoring-root',
   templateUrl: './monitoring-root.html',
+
 })
 export class MonitoringRootComponent { }
