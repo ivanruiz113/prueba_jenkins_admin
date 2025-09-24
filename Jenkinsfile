@@ -43,11 +43,15 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def projects = env.AFFECTED_PROJECTS.split(',')
-                    for (p in projects) {
-                        echo "Ejecutando build para ${p}"
-                        sh "npx nx build ${p}"
-                        sh "cp -r dist/apps/${p}/* /var/jenkins_builds/${p}/"
+                    if (env.AFFECTED_PROJECTS?.trim()) {
+                        def projects = env.AFFECTED_PROJECTS.split(',')
+                        for (p in projects) {
+                            echo "Ejecutando build para ${p}"
+                            sh "npx nx build ${p}"
+                            sh "cp -r dist/apps/${p}/* /var/jenkins_builds/${p}/"
+                        }
+                    } else {
+                        echo "No hay proyectos afectados, saltando build."
                     }
                 }
             }
