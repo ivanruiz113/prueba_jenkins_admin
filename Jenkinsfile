@@ -25,7 +25,7 @@ pipeline {
             steps {
                 script {
                     def affected = sh(
-                        script: "npx nx print-affected --target=build --select=projects --base=origin/main --head=HEAD",
+                        script: "npx nx show projects --affected --target=build --select=projects --base=origin/main --head=HEAD",
                         returnStdout: true
                     ).trim()
 
