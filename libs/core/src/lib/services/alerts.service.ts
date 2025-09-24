@@ -11,6 +11,7 @@ export class AlertsService {
 
   private _defaultCloseDelay = this._envService.env.alertsConfig.closeDelay;
 
+
   /**
    * Retorna la señal que informa de nuevas alertas.
    */
