@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:22'
+            args '-v /var/jenkins_builds:/var/jenkins_builds'
+        }
+    }
 
     stages {
         stage('Checkout') {
