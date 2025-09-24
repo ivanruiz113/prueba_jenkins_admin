@@ -1,0 +1,92 @@
+<div class="w-full h-full flex bg-gray-900">
+
+  <div class="h-full adm-layout-menu">
+    <div class="w-full h-full relative flex flex-col p-8 text-gray-300">
+      <div class="text-white mb-8">
+        <h1 class="text-lg">Balanz Admin V2</h1>
+        <p class="italic text-xxs">
+          &copy; {{currentYear}} Balanz | Versión {{ version.version }} {{ version.hash }}
+        </p>
+      </div>
+      <ol>
+        @for(option of drawerOptions; track option.label;) {
+        <li>
+          @if (option.route) {
+          <a class="text-sm py-2 flex items-center" [routerLink]="[option.route]">
+            <span class="pe-2 pi" [ngClass]="option.icon || 'pi-file'"></span>
+            <span class="leading-none">{{ option.label }}</span>
+          </a>
+          }
+          @if(option.href) {
+          <a class="text-sm py-2 flex items-center" [href]="option.href">
+            <span class="pe-2 pi" [ngClass]="option.icon || 'pi-file'"></span>
+            <span class="leading-none">{{ option.label }}</span>
+            @if (option.isV1) {
+            <p-chip label="v1" class="ms-1 adm-small-chip" />
+            }
+          </a>
+          }
+          @if (option.children && option.children.length) {
+          @for(child of option.children; track child.label;) {
+          @if (child.route) {
+          <a class="text-sm py-2 ps-2 flex items-center" [routerLink]="[child.route]">
+            <span class="pe-2 pi" [ngClass]="child.icon || 'pi-file'"></span>
+            <span class="leading-none">{{ child.label }}</span>
+          </a>
+          }
+          @if(child.href) {
+          <a class="text-sm py-2 ps-2 flex items-center" [href]="child.href">
+            <span class="pe-2 pi" [ngClass]="child.icon || 'pi-file'"></span>
+            <span class="leading-none">{{ child.label }}</span>
+            @if (child.isV1) {
+            <p-chip label="v1" class="ms-1 adm-small-chip" />
+            }
+          </a>
+          }
+          }
+          }
+        </li>
+        }
+      </ol>
+      <div class="w-full mt-auto bottom-0 left-0 right-0">
+        <div class="grid grid-cols-6">
+          <div class="col-span-5 flex items-start">
+            <p-avatar [image]="'https://devusers.balanz.com/' + currentUser['Avatar'] || ''" size="normal"
+              shape="circle" />
+            <div class="ps-2">
+              <p class="text-white leading-none text-sm font-semibold">
+                {{ currentUser['Nombre'] }}
+              </p>
+              <p class="text-white leading-sm text-xxs">
+                Id persona: {{ currentUser['idPersona'] }}
+              </p>
+            </div>
+          </div>
+          <div class="col flex align-center justify-end">
+            <a href="javascript:;" class="w-full text-gray-300 p-0 cursor-pointer" (click)="op.toggle($event)">
+              <i class="pi pi-ellipsis-h text-lg"></i>
+            </a>
+            <p-popover #op class="w-full">
+              <div class="w-full">
+                <p-button class="w-full text-white" link label="Cerrar sesión" size="small" icon="pi pi-sign-out"
+                  (click)="doLogOut()" />
+              </div>
+            </p-popover>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="h-full adm-layout-outlet-container overflow-x-hidden overflow-y-scroll py-4">
+    <div class="w-full h-full bg-slate-100 rounded-s-xl">
+      <div class="absolute">
+        <p class="ps-5 pt-3 text-2xl text-slate-900">
+          {{ currentUrl() }}
+        </p>
+      </div>
+      <router-outlet />
+    </div>
+  </div>
+</div>

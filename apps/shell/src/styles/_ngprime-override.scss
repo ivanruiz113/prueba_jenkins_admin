@@ -1,0 +1,25 @@
+/**********************************************************************
+ *
+ * Archivo donde se guardarán los sobreescrituras de ngprime,
+ * tanto variables como clases. Para cambios que no sean unicos
+ * del framework, agregarlos dentro del archivo general si son
+ * reutilizados de maneral global, sino va dentro del css del
+ * componente.
+ *
+ **********************************************************************/
+
+.adm-small-chip {
+  --p-chip-padding-x: 0.5rem !important;
+  --p-chip-padding-y: 0.125rem !important;
+  --p-chip-background: #5dbe1d !important;
+  --p-chip-text-color: white !important;
+  --p-chip-border-color: transparent !important;
+}
+
+// .adm-small-chip {
+//   --p-chip-padding-x: 0.5rem !important;
+//   --p-chip-padding-y: 0.125rem !important;
+//   --p-chip-background: #5dbe1d !important;
+//   --p-chip-text-color: white !important;
+//   --p-chip-border-color: transparent !important;
+// }

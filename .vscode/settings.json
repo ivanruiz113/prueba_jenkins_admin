@@ -1,0 +1,29 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.autoClosingBrackets": "always",
+  "editor.autoIndent": "full",
+  "editor.formatOnPaste": true,
+  "javascript.preferences.quoteStyle": "single",
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.importModuleSpecifierEnding": "index",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifierEnding": "index",
+  "typescript.format.placeOpenBraceOnNewLineForFunctions": false,
+  "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+  "files.insertFinalNewline": true,
+  "notebook.insertFinalNewline": true,
+  "html.autoClosingTags": true,
+  "angular.suggest.includeCompletionsWithSnippetText": true,
+  /* Tailwind css */
+  "tailwindCSS.experimental.classRegex": [
+    [
+      "@(apply|forward)\\s+([^;]*);",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ]
+  ],
+  "files.associations": {
+    "*.css": "tailwindcss",
+  }
+}

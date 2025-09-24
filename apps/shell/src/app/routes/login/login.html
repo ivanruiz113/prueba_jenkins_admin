@@ -1,0 +1,44 @@
+<div class="w-full h-full relative flex items-center justify-center bg-gray-900">
+  <div class="w-70">
+    <h1 class="text-3xl mb-10 text-neutral-300">
+      Iniciar sesión
+    </h1>
+    <form class="w-full" [formGroup]="frmLogin">
+      <!-- user -->
+      <div [ngClass]="_preLoginSignal() !== null ? 'mb-10' : 'mb-5'">
+        <p-floatlabel>
+          <p-iconfield>
+            <input pInputText type="text" id="input-user" formControlName="user" [fluid]="true"
+              (keydown.enter)="onSubmit()" />
+            @if (_preLoginSignal() !== null) {
+            <p-inputicon class="cursor-pointer pi pi-arrow-circle-left" (click)="_resetUser()" />
+            }
+          </p-iconfield>
+          <label for="input-user">Usuario</label>
+        </p-floatlabel>
+      </div>
+      @if (_preLoginSignal()) {
+      <!-- password -->
+      <div class="mb-5">
+        <p-floatlabel>
+          <p-iconfield>
+            <input pInputText="passInput" [type]="_showPassword() ? 'text' : 'password'" id="input-pass"
+              formControlName="pass" [fluid]="true" (keydown.enter)="onSubmit()" />
+            @if (_showPassword()) {
+            <p-inputicon class="cursor-pointer pi pi-eye" (click)="_showPassword.set(false)" />
+            } @else {
+            <p-inputicon class="cursor-pointer pi pi-eye-slash" (click)="_showPassword.set(true)" />
+            }
+          </p-iconfield>
+          <label for="input-pass">Contraseña</label>
+        </p-floatlabel>
+      </div>
+      }
+      <!-- submit -->
+      <div class="w-full flex justify-end pt-3 text-white">
+        <p-button [loading]="_loading()" size="small" [label]="!_preLoginSignal() ? 'Continuar' : 'Iniciar sesión'"
+          [disabled]="frmLogin.invalid || _loading()" (onClick)="onSubmit()" />
+      </div>
+    </form>
+  </div>
+</div>

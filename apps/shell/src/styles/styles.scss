@@ -1,0 +1,14 @@
+/*****************************************************************************
+ *
+ *    Archivo principal que incorpora los modulos generales. No agregar
+ *    nada dentro de este archivo. Lo demas agregar dentro de los modulos
+ *    y sino dentro del css del componente.
+ *
+ *****************************************************************************/
+
+@forward 'tailwindcss';
+@forward 'primeicons/primeicons.css';
+@forward './_variables';
+@forward './_tailwind-override';
+@forward './_ngprime-override';
+@forward './_general';

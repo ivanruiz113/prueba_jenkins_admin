@@ -1,0 +1,132 @@
+{
+  "name": "monitoring",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/monitoring/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:webpack-browser",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/monitoring",
+        "index": "apps/monitoring/src/index.html",
+        "main": "apps/monitoring/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/monitoring/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/monitoring/public"
+          }
+        ],
+        "styles": [
+          "apps/monitoring/src/styles.scss"
+        ],
+        "customWebpackConfig": {
+          "path": "apps/monitoring/webpack.config.ts"
+        }
+      },
+      "configurations": {
+        "production": {
+          "baseHref": "/admin/v2/monitoring/",
+          "deployUrl": "/admin/v2/monitoring/",
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all",
+          "customWebpackConfig": {
+            "path": "apps/monitoring/webpack.prod.config.ts"
+          }
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "continuous": true,
+      "executor": "@nx/angular:dev-server",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "monitoring:build:production"
+        },
+        "development": {
+          "buildTarget": "monitoring:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "dependsOn": [
+        "shell:serve"
+      ]
+    },
+    "serve-standalone": {
+      "executor": "@nx/angular:dev-server",
+      "options": {
+        "port": 4200,
+        "publicHost": "http://localhost:4200"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "monitoring:build:production"
+        },
+        "development": {
+          "buildTarget": "monitoring:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "monitoring:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "serve-static": {
+      "continuous": true,
+      "executor": "@nx/web:file-server",
+      "defaultConfiguration": "production",
+      "options": {
+        "buildTarget": "monitoring:build",
+        "port": 4201,
+        "watch": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "monitoring:build:development"
+        },
+        "production": {
+          "buildTarget": "monitoring:build:production"
+        }
+      }
+    }
+  }
+}

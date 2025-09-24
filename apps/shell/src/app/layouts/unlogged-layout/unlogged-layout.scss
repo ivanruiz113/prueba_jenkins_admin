@@ -1,0 +1,14 @@
+.adm-unlogged-layout__background-container {
+  width: calc(100vw - var(--adm-sidebar-width));
+}
+
+.adm-unlogged-layout__background {
+  background-image: var(--adm-login-background-logo);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.adm-unlogged-layout__sidebar {
+  width: var(--adm-sidebar-width);
+}

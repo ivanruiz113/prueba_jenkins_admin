@@ -1,0 +1,19 @@
+<!-- layout login costado -->
+<div class="w-full h-full flex bg-gray-900">
+  <div class="adm-unlogged-layout__background-container overflow-hidden p-8 pe-6">
+    <div
+      class="h-full adm-unlogged-layout__background rounded-xl overflow-hidden flex items-end justify-start ps-8 pb-8">
+      <div>
+        <h1 class="text-white text-4xl text-left">
+          Bienvenido a <br /><strong>Balanz Admin V2</strong>
+        </h1>
+        <p class="text-white italic text-sm">
+          &copy; {{currentYear}} Balanz | Versión {{ version.version }} {{ version.hash }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="w-full p-8 ps-0 adm-unlogged-layout__sidebar">
+    <router-outlet></router-outlet>
+  </div>
+</div>

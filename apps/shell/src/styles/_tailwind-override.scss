@@ -1,0 +1,94 @@
+/**********************************************************************
+ *
+ * Archivo donde se guardarán los sobreescrituras de tailwind,
+ * tanto variables como clases. Para cambios que no sean unicos
+ * del framework, agregarlos dentro del archivo general si son
+ * reutilizados de maneral global, sino va dentro del css del
+ * componente.
+ *
+ **********************************************************************/
+
+@reference 'tailwindcss';
+
+/*
+  Override de la paleta de colores de tailwind. Chequear la paleta
+  de colores de tailwind: https://tailwindcss.com/docs/colors */
+@theme {
+  /* text sizes */
+  --text-xxs: 0.625rem;
+  /* gray */
+  // --color-gray-500: #303641;
+}
+
+/*
+  Capa encargada de modificar estilos globales. Se usa para personalizar
+  los estilos base de los elementos HTML (ejemplo: h1, p, body, etc.).
+*/
+@layer base {
+
+  html,
+  body {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  * {
+    box-shadow: none !important;
+    outline: none !important;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/*
+  Capa encargada de modificar clases reutilizables. Se usa para definir
+  clases personalizadas que encapsulan estilos más complejos para componentes.
+*/
+@layer components {
+  .adm-form-control {
+    @apply w-full h-8 p-2 disabled:opacity-50 disabled:select-none text-sm border rounded-sm border-gray-500 text-gray-400 placeholder:text-gray-400 flex items-center;
+  }
+
+  .adm-table {
+    @apply w-full border-collapse border border-gray-500 text-sm bg-gray-900;
+
+    thead {
+      tr {
+        @apply w-full bg-gray-900;
+
+        th {
+          @apply border-e-0 border-s-0 border-b-1 border-t-1 border-gray-500 p-2 text-left text-white font-bold;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        @apply w-full bg-gray-900;
+
+        td {
+          @apply border-e-0 border-s-0 border-b-1 border-t-1 border-gray-500 px-4 py-2 text-left text-white;
+        }
+      }
+    }
+  }
+}
+
+/*
+  Capa encargada de extender las clases de Tailwind. Se usa para agregar
+  nuevas clases de utilidad que siguen el enfoque atómico de Tailwind.
+*/
+@layer utilities {
+  .text-xxs {
+    font-size: var(--text-xxs);
+  }
+
+  .adm-absolute-full {
+    @apply absolute top-0 bottom-0 left-0 right-0;
+  }
+
+  .adm-flex-center {
+    @apply flex justify-center items-center;
+  }
+}

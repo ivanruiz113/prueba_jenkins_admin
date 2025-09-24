@@ -1,0 +1,30 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@angular/*": ["node_modules/@angular/*"],
+      "@balanz-backoffice/clients": ["libs/clients/src/index.ts"],
+      "@balanz-backoffice/core": ["libs/core/src/index.ts"],
+      "@balanz-backoffice/shared": ["libs/shared/src/index.ts"],
+      "authorizations/Routes": [
+        "apps/authorizations/src/app/authorizations-root-routes.ts"
+      ],
+      "debugger/Routes": ["apps/debugger/src/app/debugger-root-routes.ts"],
+      "monitoring/Routes": ["apps/monitoring/src/app/monitoring-root-routes.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

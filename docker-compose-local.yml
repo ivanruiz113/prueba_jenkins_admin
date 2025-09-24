@@ -1,0 +1,15 @@
+version: '2'
+services:
+  admin:
+    image: node:22-alpine
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.local
+    volumes:
+      - .:/usr/share/backoffice
+    working_dir: /usr/share/backoffice
+    command: sh -c "npm add --global nx"
+    ports:
+      - 4200:4200
+    stdin_open: true
+    tty: true

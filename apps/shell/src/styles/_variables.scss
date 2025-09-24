@@ -1,0 +1,17 @@
+/**********************************************************************
+ *
+ * Archivo donde se guardarán las variables que se utilizan dentro de
+ * la aplicación que no estan directamente relacionadas a tailwind.
+ *
+ **********************************************************************/
+
+:root {
+  --adm-header-height: 3rem;
+  // --adm-subheader-height: 3rem;
+  // --adm-footer-height: 1.5rem;
+  --adm-sidebar-width: 40rem;
+  // --adm-activity-bar-width: 3.75rem;
+  // --adm-market-route-header-height: 2.6rem;
+  --adm-login-background-logo: url('/images/unlogged-background.jpg');
+  --adm-logged-menu-width: 300px;
+}

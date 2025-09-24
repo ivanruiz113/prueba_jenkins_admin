@@ -1,0 +1,7 @@
+.adm-layout-menu {
+  width: var(--adm-logged-menu-width);
+}
+
+.adm-layout-outlet-container {
+  width: calc(100vw - var(--adm-logged-menu-width));
+}
