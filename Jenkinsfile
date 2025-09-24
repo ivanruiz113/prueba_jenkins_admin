@@ -4,16 +4,21 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout([
-                  $class: 'GitSCM',
-                  branches: [[name: '*/main']],
-                  userRemoteConfigs: [[
-                      url: 'https://github.com/ivanruiz113/prueba_jenkins_admin.git',
-                      credentialsId: '7dfda764-c3a3-4384-9c71-6a98bb249e53'
-                  ]]
-              ])
+                checkout scm
             }
         }
+        // stage('Checkout') {
+        //     steps {
+        //         checkout([
+        //           $class: 'GitSCM',
+        //           branches: [[name: '*/main']],
+        //           userRemoteConfigs: [[
+        //               url: 'https://github.com/ivanruiz113/prueba_jenkins_admin.git',
+        //               credentialsId: '7dfda764-c3a3-4384-9c71-6a98bb249e53'
+        //           ]]
+        //       ])
+        //     }
+        // }
 
         stage('Install') {
             steps {
