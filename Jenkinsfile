@@ -4,7 +4,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                checkout([
+                  $class: 'GitSCM',
+                  branches: [[name: '*/main']],
+                  userRemoteConfigs: [[
+                      url: 'https://github.com/ivanruiz113/prueba_jenkins_admin.git',
+                      credentialsId: '7dfda764-c3a3-4384-9c71-6a98bb249e53'
+                  ]]
+              ])
             }
         }
 
@@ -17,7 +24,6 @@ pipeline {
         stage('Detect Affected') {
             steps {
                 script {
-                    // Detect apps afectadas en el PR / commit
                     def affected = sh(
                         script: "npx nx print-affected --target=build --select=projects --base=origin/main --head=HEAD",
                         returnStdout: true
