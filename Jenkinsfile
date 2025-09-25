@@ -10,11 +10,14 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh 'node -v'
-                sh 'npm -v'
-                sh 'nx --version'
                 sh 'rm -rf node_modules dist' // opcional
                 sh 'npm ci'
+            }
+        }
+
+        stage('Fix LightningCSS') {
+            steps {
+                sh 'npx lightningcss --update-binary || true'
             }
         }
 
