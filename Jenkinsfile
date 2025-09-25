@@ -11,8 +11,10 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh 'rm -rf node_modules dist'
-                sh 'npm ci'
+                // sh 'rm -rf node_modules dist'
+                // sh 'npm ci'
+                sh 'npm ci --ignore-scripts'
+                sh 'npm rebuild'
             }
         }
 
