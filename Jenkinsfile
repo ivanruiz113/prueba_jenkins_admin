@@ -12,6 +12,7 @@ pipeline {
             steps {
                 sh 'rm -rf node_modules dist' // opcional
                 sh 'npm ci'
+                sh 'npm rebuild lightningcss'
             }
         }
 
