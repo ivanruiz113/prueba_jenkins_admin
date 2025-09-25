@@ -9,21 +9,12 @@ pipeline {
             }
         }
 
-        stage('Install & Build in Node 22') {
+        stage('Install') {
             steps {
-                script {
-                    docker.image('node:22-bullseye').inside('-v /var/jenkins_home/.npm:/root/.npm') {
-                        sh 'npm ci'
-                        sh 'npx nx build shell'
-                    }
-                }
+                sh 'rm -rf node_modules dist'
+                sh 'npm ci'
             }
         }
-        // stage('Install') {
-        //     steps {
-        //         sh 'npm ci'
-        //     }
-        // }
 
         stage('Detect Affected Apps and Libs') {
             steps {
