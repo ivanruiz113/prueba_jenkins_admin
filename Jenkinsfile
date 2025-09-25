@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:22-bullseye'
-            args '-u root:root'  // evita problemas de permisos
-        }
-    }
+    agent any
 
     stages {
         stage('Checkout') {
@@ -15,7 +10,7 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh 'rm -rf node_modules dist'
+                // sh 'rm -rf node_modules dist' // opcional
                 sh 'npm ci'
             }
         }
@@ -41,7 +36,8 @@ pipeline {
                         def projects = env.AFFECTED_PROJECTS.split(',')
                         for (p in projects) {
                             echo "Ejecutando build para ${p}"
-                            sh "npx nx build ${p}"
+                            sh "npx nx build ${p} --configuration=production"
+                            sh "mkdir -p /var/jenkins_builds/${p}"
                             sh "cp -r dist/apps/${p}/* /var/jenkins_builds/${p}/"
                         }
                     } else {
