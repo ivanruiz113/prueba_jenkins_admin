@@ -2,11 +2,13 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
+
         // stage('Checkout') {
         //     steps {
         //         checkout([
@@ -30,7 +32,7 @@ pipeline {
             steps {
                 script {
                     def affected = sh(
-                        script: "npx nx show projects --affected --target=build --select=projects --base=origin/main --head=HEAD",
+                        script: "npx nx show projects --affected --target=build --select=projects --base=HEAD~1 --head=HEAD",
                         returnStdout: true
                     ).trim()
 
