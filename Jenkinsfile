@@ -8,6 +8,12 @@ pipeline {
             }
         }
 
+        // stage('Install') {
+        //     steps {
+        //         sh 'rm -rf node_modules dist package-lock.json' // opcional
+        //         sh 'npm i'
+        //     }
+        // }
         stage('Install') {
             steps {
                 sh 'rm -rf node_modules dist package-lock.json' // opcional
@@ -36,6 +42,7 @@ pipeline {
                         def projects = env.AFFECTED_PROJECTS.split(',')
                         for (p in projects) {
                             echo "Ejecutando build para ${p}"
+                            sh 'npx nx reset'
                             sh "npx nx build ${p} --configuration=production"
                             sh "mkdir -p /var/jenkins_builds/${p}"
                             sh "cp -r dist/apps/${p}/* /var/jenkins_builds/${p}/"
