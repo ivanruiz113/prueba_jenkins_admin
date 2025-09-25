@@ -1,8 +1,12 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:22-bullseye'
+            args '-u root:root'  // evita problemas de permisos
+        }
+    }
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -11,10 +15,8 @@ pipeline {
 
         stage('Install') {
             steps {
-                // sh 'rm -rf node_modules dist'
-                // sh 'npm ci'
-                sh 'npm ci --ignore-scripts'
-                sh 'npm rebuild'
+                sh 'rm -rf node_modules dist'
+                sh 'npm ci'
             }
         }
 
