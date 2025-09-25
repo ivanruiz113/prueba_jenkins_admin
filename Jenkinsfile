@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:22-alpine'
+            args '-v /var/jenkins_home/.npm:/root/.npm'
+        }
+    }
 
     stages {
 
@@ -8,19 +13,6 @@ pipeline {
                 checkout scm
             }
         }
-
-        // stage('Checkout') {
-        //     steps {
-        //         checkout([
-        //           $class: 'GitSCM',
-        //           branches: [[name: '*/main']],
-        //           userRemoteConfigs: [[
-        //               url: 'https://github.com/ivanruiz113/prueba_jenkins_admin.git',
-        //               credentialsId: '7dfda764-c3a3-4384-9c71-6a98bb249e53'
-        //           ]]
-        //       ])
-        //     }
-        // }
 
         stage('Install') {
             steps {
@@ -31,8 +23,10 @@ pipeline {
         stage('Detect Affected') {
             steps {
                 script {
+                    def baseCommit = env.GIT_PREVIOUS_SUCCESSFUL_COMMIT ?: "HEAD~1"
+
                     def affected = sh(
-                        script: "npx nx show projects --affected --target=build --select=projects --base=HEAD~1 --head=HEAD",
+                        script: "npx nx show projects --affected --target=build --select=projects --base=${baseCommit} --head=HEAD",
                         returnStdout: true
                     ).trim()
 
@@ -50,6 +44,7 @@ pipeline {
                         for (p in projects) {
                             echo "Ejecutando build para ${p}"
                             sh "npx nx build ${p}"
+                            sh "mkdir -p /var/jenkins_builds/${p}"
                             sh "cp -r dist/apps/${p}/* /var/jenkins_builds/${p}/"
                         }
                     } else {
