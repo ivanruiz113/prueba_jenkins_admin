@@ -10,7 +10,8 @@ pipeline {
 
         stage('Install') {
             steps {
-                sh 'npm ci'
+                sh 'rm -rf node_modules dist package-lock.json' // opcional
+                sh 'npm i'
             }
         }
 
