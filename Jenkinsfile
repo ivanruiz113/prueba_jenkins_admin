@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:22-alpine'
-            args '-v /var/jenkins_home/.npm:/root/.npm -v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
 
     stages {
 
@@ -14,29 +9,37 @@ pipeline {
             }
         }
 
-        stage('Install') {
+        stage('Install & Build in Node 22') {
             steps {
-                sh 'npm ci'
+                script {
+                    docker.image('node:22-bullseye').inside('-v /var/jenkins_home/.npm:/root/.npm') {
+                        sh 'npm ci'
+                        sh 'npx nx build shell'
+                    }
+                }
             }
         }
+        // stage('Install') {
+        //     steps {
+        //         sh 'npm ci'
+        //     }
+        // }
 
-        stage('Detect Affected') {
+        stage('Detect Affected Apps and Libs') {
             steps {
                 script {
                     def baseCommit = env.GIT_PREVIOUS_SUCCESSFUL_COMMIT ?: "HEAD~1"
-
                     def affected = sh(
                         script: "npx nx show projects --affected --target=build --select=projects --base=${baseCommit} --head=HEAD",
                         returnStdout: true
                     ).trim()
-
                     echo "Proyectos afectados: ${affected}"
                     env.AFFECTED_PROJECTS = affected
                 }
             }
         }
 
-        stage('Build') {
+        stage('Build affected Apps or Libs') {
             steps {
                 script {
                     if (env.AFFECTED_PROJECTS?.trim()) {
@@ -44,7 +47,6 @@ pipeline {
                         for (p in projects) {
                             echo "Ejecutando build para ${p}"
                             sh "npx nx build ${p}"
-                            sh "mkdir -p /var/jenkins_builds/${p}"
                             sh "cp -r dist/apps/${p}/* /var/jenkins_builds/${p}/"
                         }
                     } else {
