@@ -10,7 +10,10 @@ pipeline {
 
         stage('Install') {
             steps {
-                // sh 'rm -rf node_modules dist' // opcional
+                sh 'node -v'
+                sh 'npm -v'
+                sh 'nx --version'
+                sh 'rm -rf node_modules dist' // opcional
                 sh 'npm ci'
             }
         }
